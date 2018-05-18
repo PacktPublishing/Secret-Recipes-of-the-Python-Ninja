@@ -1,0 +1,9 @@
+def schedule_gc_request():
+    """
+    Ask the GC thread to run an implicit collection.
+    """
+    assert gc_is_threaded == True
+    # Note this is extremely fast if a collection is already requested
+    if gc_thread.collection_requested == False:
+        gc_thread.collection_requested = True
+        gc_thread.wakeup.release()

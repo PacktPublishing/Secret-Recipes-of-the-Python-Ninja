@@ -1,0 +1,7 @@
+interp = interpreters.create()
+try:
+    interp.run(tw.dedent("""
+        raise KeyError
+        """))
+except KeyError:
+    print("got the error from the subinterpreter")

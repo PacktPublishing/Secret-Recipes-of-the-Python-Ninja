@@ -1,0 +1,2 @@
+ pyinstaller <program>.py
+

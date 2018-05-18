@@ -1,0 +1,6 @@
+interps = [interpreters.create() for i in range(5)]
+with concurrent.futures.ThreadPoolExecutor(max_workers=len(interps)) as pool:
+    print('before')
+    for interp in interps:
+        pool.submit(interp.run, 'print("starting"); print("stopping")'
+    print('after')

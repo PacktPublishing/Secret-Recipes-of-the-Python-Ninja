@@ -1,0 +1,5 @@
+def collect_generations():
+    """
+    Collect as many generations as desired by the heuristic.
+    """
+    # Same code as currently (see collect_generations() in gcmodule.c)

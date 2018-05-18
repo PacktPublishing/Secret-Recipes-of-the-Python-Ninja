@@ -1,0 +1,5 @@
+def gc.get_mode(mode):
+    """
+    Get current GC mode.
+    """
+    return "threaded" if gc_is_threaded else "serial"

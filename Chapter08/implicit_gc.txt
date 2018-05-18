@@ -1,0 +1,6 @@
+def is_implicit_gc_desired():
+    """
+    Whether an implicit GC run is currently desired based on allocation
+    stats.  Return a generation number, or -1 if none desired.
+    """
+    # Same heuristic as currently (see _PyObject_GC_Alloc in gcmodule.c)

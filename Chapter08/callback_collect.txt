@@ -1,0 +1,5 @@
+def collect_with_callback(generation):
+    """
+    Collect up to the given *generation*.
+    """
+    # Same code as currently (see collect_with_callback() in gcmodule.c)

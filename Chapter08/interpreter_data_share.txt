@@ -1,0 +1,22 @@
+interp = interpreters.create()
+r1, s1 = interpreters.create_channel()
+r2, s2 = interpreters.create_channel()
+def run():
+    interp.run(tw.dedent("""
+        fd = int.from_bytes(
+                reader.recv(), 'big')
+        for line in os.fdopen(fd):
+            print(line)
+        writer.send(b'')
+        """),
+        shared=dict(
+            reader=r,
+            writer=s2,
+            ),
+        )
+t = threading.Thread(target=run)
+t.start()
+with open('spamspamspam') as infile:
+    fd = infile.fileno().to_bytes(1, 'big')
+    s.send(fd)
+    r.recv()

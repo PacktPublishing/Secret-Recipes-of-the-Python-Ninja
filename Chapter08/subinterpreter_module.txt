@@ -1,0 +1,3 @@
+interp = interpreters.create()
+main_module = mod_name
+interp.run(f'import runpy; runpy.run_module({main_module!r})')

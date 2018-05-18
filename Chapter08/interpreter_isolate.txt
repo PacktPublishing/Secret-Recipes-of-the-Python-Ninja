@@ -1,0 +1,4 @@
+interp = interpreters.create()
+print('before')
+interp.run('print("during")')
+print('after')

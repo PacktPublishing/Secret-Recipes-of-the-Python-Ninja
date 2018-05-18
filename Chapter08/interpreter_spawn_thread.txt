@@ -1,0 +1,7 @@
+interp = interpreters.create()
+def run():
+    interp.run('print("during")')
+t = threading.Thread(target=run)
+print('before')
+t.start()
+print('after')

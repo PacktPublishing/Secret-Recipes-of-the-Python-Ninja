@@ -1,0 +1,2 @@
+nuitka --module <module>.py
+

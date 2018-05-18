@@ -1,0 +1,10 @@
+interp = interpreters.create()
+interp.run(tw.dedent("""
+    import some_lib
+    import an_expensive_module
+    some_lib.set_up()
+    """))
+wait_for_request()
+interp.run(tw.dedent("""
+    some_lib.handle_request()
+    """))

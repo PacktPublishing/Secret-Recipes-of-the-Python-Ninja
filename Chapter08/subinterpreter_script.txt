@@ -1,0 +1,3 @@
+interp = interpreters.create()
+main_script = path_name
+interp.run(f"import runpy; runpy.run_path({main_script!r})")

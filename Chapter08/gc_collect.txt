@@ -1,0 +1,6 @@
+def gc.collect(generation=2):
+    """
+    Schedule collection of the given generation and wait for it to
+    finish.
+    """
+    return lock_and_collect(generation)

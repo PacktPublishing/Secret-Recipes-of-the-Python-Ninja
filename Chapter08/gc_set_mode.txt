@@ -1,0 +1,22 @@
+def gc.set_mode(mode):
+    """
+    Set current GC mode.  This is a process-global setting.
+    """
+    if mode == "threaded":
+        if not gc_is_threaded == False:
+            # Launch thread
+            gc_thread.done.acquire(block=False)  # should not fail
+            gc_is_threaded = True
+            PyThread_start_new_thread(gc_thread)
+    elif mode == "serial":
+        if gc_is_threaded == True:
+            # Wake up thread, asking it to end
+            gc_is_threaded = False
+            gc_thread.wakeup.release()
+            # Wait for thread exit
+            Py_BEGIN_ALLOW_THREADS
+            gc_thread.done.acquire()
+            Py_END_ALLOW_THREADS
+            gc_thread.done.release()
+    else:
+        raise ValueError("unsupported mode %r" % (mode,))

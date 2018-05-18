@@ -1,0 +1,20 @@
+def gc_thread(interp_state):
+    """
+    Dedicated loop for threaded GC.
+    """
+    # Init Python thread state (omitted, see t_bootstrap in _threadmodule.c)
+    # Optional: init thread in Python threading module, for better introspection
+    me = threading._ensure_dummy_thread(name="GC thread")
+
+    while gc_is_threaded == True:
+        Py_BEGIN_ALLOW_THREADS
+        gc_thread.wakeup.acquire()
+        Py_END_ALLOW_THREADS
+        if gc_thread.collection_requested != 0:
+            gc_thread.collection_requested = 0
+            lock_and_collect(generation=-1)
+
+    threading._remove_dummy_thread(me)
+    # Signal we're exiting
+    gc_thread.done.release()
+    # Free Python thread state (omitted)

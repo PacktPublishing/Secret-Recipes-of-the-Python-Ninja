@@ -1,0 +1,2 @@
+>>> pipenv install <module>
+

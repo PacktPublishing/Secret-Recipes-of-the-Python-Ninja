@@ -1,0 +1,20 @@
+def lock_and_collect(generation=-1):
+    """
+    Perform a collection with thread safety.
+    """
+    me = PyThreadState_GET()
+    if gc_mutex.owner == me:
+        # reentrant GC collection request, bail out
+        return
+    Py_BEGIN_ALLOW_THREADS
+    gc_mutex.lock.acquire()
+    Py_END_ALLOW_THREADS
+    gc_mutex.owner = me
+    try:
+        if generation >= 0:
+            return collect_with_callback(generation)
+        else:
+            return collect_generations()
+    finally:
+        gc_mutex.owner = NULL
+        gc_mutex.lock.release()
